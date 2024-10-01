@@ -29,6 +29,7 @@ CREATE TABLE Squadra (
 Create table Militanza (
     nome_squadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL,
     ruolomilitanza VARCHAR(1) NOT NULL,
+    id_militanza NOT NULL
     id_giocatore id_valido NOT NULL,
     data_inizio NOT NULL,
     data_termine NOT NULL,
@@ -37,7 +38,7 @@ Create table Militanza (
     assist NOT NULL,
     goal_subiti NOT NULL
   
-    PRIMARY KEY (id_giocatore),
+    PRIMARY KEY (id_militanza),
   
     CONSTRAINT checkdate CHECK (data_inizio < data_termine)
     CONSTRAINT checkruolomilitanza CHECK (ruolomilitanza = 'M' OR ruolomilitanza = 'P')
