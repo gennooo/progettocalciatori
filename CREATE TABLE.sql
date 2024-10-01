@@ -15,16 +15,20 @@ CREATE TABLE Giocatori (
     PRIMARY KEY (id_giocatore),
   
     CONSTRAINT checkpiede CHECK (piede = 'D' or piede = 'S' or piede = 'DS')
+    CONSTRAINT checkdata CHECK (data_nascita < data_ritiro)
 );
 
 
 CREATE TABLE Squadra (
     nome_squadra VARCHAR(50) NOT NULL,
     nazionalita VARCHAR(50) REFERENCES Nazioni(Nome) NOT NULL
+
+    PRIMARY KEY (nome_squadra)
 );
 
 Create table Militanza (
     nome_squadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL,
+    ruolomilitanza VARCHAR(1) NOT NULL,
     id_giocatore id_valido NOT NULL,
     data_inizio NOT NULL,
     data_termine NOT NULL,
@@ -36,6 +40,8 @@ Create table Militanza (
     PRIMARY KEY (id_giocatore),
   
     CONSTRAINT checkdate CHECK (data_inizio < data_termine)
+    CONSTRAINT checkruolomilitanza CHECK (ruolomilitanza = 'M' OR ruolomilitanza = 'P')
+    CONSTRAINT checkgoalsubiti CHECK ((goal_subiti = 0 AND ruolomilitanza = 'M') OR (goal_subiti >= 0 AND ruolomilitanza = 'P')
   );
 
 CREATE TABLE Trofeo (
