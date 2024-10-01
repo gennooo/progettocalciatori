@@ -10,6 +10,7 @@ CREATE TABLE Giocatori (
     piede CHARACTER(2) NOT NULL,
     ruolo ruolo_position NOT NULL,
     abilita skills NOT NULL,
+    ritiro BOOLEAN NOT NULL DEFAULT FALSE,
     data_ritiro DATE NOT NULL
   
     PRIMARY KEY (id_giocatore),
