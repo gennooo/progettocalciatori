@@ -1,0 +1,20 @@
+//prima di inserire una tupla in Militanza dobbiamo controllare che la data di inizio non si trovi nel mezzo di una data di un'altra militanza 
+CREATE OR REPLACE FUNCTION check_mil_clash()
+RETURNS TRIGGER AS $$
+BEGIN 
+	IF EXISTS (
+		SELECT 1
+		FROM Militanza 
+		WHERE New.id_valido = id_valido
+		  AND New.Data_Inizio BETWEEN data_inizio AND data_termine
+	) THEN
+		RAISE EXCEPTION 'La militanza % non può essere inserita. Il giocatore % in quella data ha già un''altra militanza', NEW.id_militanza, NEW.id_valido;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_mil_clash
+BEFORE INSERT ON Militanza
+FOR EACH ROW
+EXECUTE FUNCTION check_mil_clash();
