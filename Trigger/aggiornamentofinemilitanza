@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION agg_fine_mil()
+RETURNS TRIGGER AS $$
+BEGIN
+			UPDATE Militanza
+			SET data_termine = CURRENT_DATE
+			WHERE id_valido = NEW.id_valido AND data_termine IS NULL; 
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER agg_fine_mil
+AFTER UPDATE ON Giocatori
+FOR EACH ROW
+WHEN (NEW.Ritirato)
+EXECUTE FUNCTION agg_fine_mil();
