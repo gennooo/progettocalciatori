@@ -3,7 +3,12 @@ RETURNS TRIGGER AS $$
 BEGIN
 			UPDATE Militanza
 			SET data_termine = CURRENT_DATE
-			WHERE id_valido = NEW.id_valido AND data_termine IS NULL; 
+			WHERE id_valido = NEW.id_valido AND data_termine IS NULL;
+
+                        UPDATE Giocatori
+                        SET data_ritiro = CURRENT_DATE
+                        WHERE id_valido = NEW.id_valido AND data_ritiro IS NULL;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
