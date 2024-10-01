@@ -52,6 +52,24 @@ CREATE TABLE Trofeo (
     PRIMARY KEY (nome_trofeo, anno)
 );
 
+CREATE TABLE vincere_individuale (
+    id_giocatore id_valido REFERENCES Giocatori(id_giocatore) NOT NULL,
+    nome_trofeo VARCHAR(30) NOT NULL,
+    anno DATE NOT NULL,
+
+    PRIMARY KEY (nome_trofeo, anno)
+
+    CONSTRAINT TrofeoFK FOREIGN KEY (nome_trofeo, anno) REFERENCES Trofeo(nome_trofeo, anno));
+
+CREATE TABLE vincere_squadra (
+nome_squadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL,
+nome_trofeo VARCHAR(30) NOT NULL,
+    anno DATE NOT NULL,
+
+    PRIMARY KEY (nome_trofeo, anno)
+
+    CONSTRAINT TrofeoFK FOREIGN KEY (nome_trofeo, anno) REFERENCES Trofeo(nome_trofeo, anno));
+
 CREATE TABLE Utenti (
     username VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(20) NOT NULL
