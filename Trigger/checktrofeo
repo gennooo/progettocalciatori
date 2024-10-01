@@ -1,5 +1,5 @@
 --un trofeo che compare più volte nella tabella trofeo deve sempre essere o di squadra o individuale
-CREATE OR REPLACE FUNCTION Controllo_coerenza_trofeo()
+CREATE OR REPLACE FUNCTION checktrofeo()
 RETURNS TRIGGER AS $$
 DECLARE
 isSquadra BOOLEAN;
@@ -20,7 +20,7 @@ BEGIN
 END;
 $$ Language plpgsql;
 
-CREATE TRIGGER controllo_coerenza_trofeo
+CREATE TRIGGER checktrofeo
 BEFORE INSERT ON Trofeo
 FOR EACH ROW
-EXECUTE FUNCTION Controllo_coerenza_trofeo();
+EXECUTE FUNCTION checktrofeo();
