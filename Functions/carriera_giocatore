@@ -2,19 +2,19 @@ CREATE OR REPLACE FUNCTION carriera_giocatore(id_player id_valido)
 RETURNS TABLE(
     Inizio_Carr Date,
     Fine_Carr Date,
-    s_part_gioc intero_non_negativo,
-    s_goal_segn intero_non_negativo,
-    s_goal_sub intero_non_negativo,
-    s_assist intero_non_negativo
+    s_part_gioc,
+    s_goal_segn,
+    s_goal_sub,
+    s_assist
 )
 AS $$
 DECLARE
     Inizio_Carr Date;
     Fine_Carr Date;
-    s_part_gioc intero_non_negativo;
-    s_goal_segn intero_non_negativo;
-    s_goal_sub intero_non_negativo;
-    s_assist intero_non_negativo;
+    s_part_gioc;
+    s_goal_segn;
+    s_goal_sub;
+    s_assist;
 
 BEGIN
     SELECT Data_Inizio INTO Inizio_Carr
@@ -25,7 +25,7 @@ BEGIN
 
     SELECT Sum(partite_giocate), Sum(goal_segnati), 
     Sum(goal_subiti), Sum(assist)
-    INTO s_part_gioc, s_goal_segn, s_goal_sub, s_cart_g, s_cart_r, s_assist
+    INTO s_part_gioc, s_goal_segn, s_goal_sub, s_assist
     FROM Militanza
     WHERE id_giocatore = id_player;
         
@@ -41,8 +41,6 @@ BEGIN
 	s_part_gioc,
 	s_goal_segn,
 	s_goal_sub,
-	s_cart_g,
-	s_cart_r,
 	s_assist;
 
 END;
