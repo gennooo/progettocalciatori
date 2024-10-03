@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION Carriera_Calciatore(checksquadra TEXT)
+RETURNS TABLE(id_player id_valido)
+AS $$
+	
+		BEGIN
+		
+			IF( NOT EXISTS ( SELECT *
+					 FROM Squadra
+					 WHERE nome_squadra = checksquadra)) THEN 
+				
+				RAISE EXCEPTION 'La squadra non esiste!';
+				
+			END IF;
+
+			RETURN QUERY SELECT DISTINCT id_giocatore FROM Militanza WHERE nomesquadra = checksquadra;		
+		
+		END;
+$$ Language plpgsql;
