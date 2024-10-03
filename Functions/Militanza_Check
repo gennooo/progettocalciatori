@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION Militanza_Check (idcheck TEXT)
+RETURNS TABLE(Squadra VARCHAR(50))
+AS $$
+	
+		BEGIN
+		
+			IF( NOT EXISTS ( SELECT *
+					 FROM Giocatore as G
+					 WHERE G.id_giocatore = idcheck)) THEN 
+				
+				RAISE EXCEPTION 'L'ID non esiste!';
+				
+			END IF;
+
+			RETURN QUERY SELECT DISTINCT M.nomesquadra FROM Militanza AS M WHERE M.id_giocatore = idcheck;		
+		END;
+$$ Language plpgsql;
