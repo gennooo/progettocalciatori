@@ -72,7 +72,7 @@ nome_trofeo VARCHAR(30) NOT NULL,
 
     CONSTRAINT TrofeoFK FOREIGN KEY (nome_trofeo, anno) REFERENCES Trofeo(nome_trofeo, anno));
 
-CREATE TABLE Partecipa_In(
+CREATE TABLE partecipazione(
 id_giocatore id_valido REFERENCES Giocatore(id_giocatore) NOT NULL,
 nomesquadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL);
 
