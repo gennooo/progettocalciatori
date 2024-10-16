@@ -1,0 +1,23 @@
+--quando inserisco o faccio update di una tupla in militanza devo controllare che se il giocatore è un portiere allora il tipo di Militanza deve essere uguale a P,altrimenti deve essere M
+CREATE OR REPLACE FUNCTION check_ruolo_militanza()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF(SELECT ruolo
+	   FROM Giocatori
+	   WHERE id_giocatore = New.id_giocatore) <> 'Portiere' THEN --Si attiva se il giocatore è di movimento
+		IF New.ruoloMilitanza <> 'M' THEN 
+			RAISE EXCEPTION 'Il giocatore è listato come portiere nella militanza, ma è un giocatore di movimento!';
+		END IF;
+	ELSE --Si attiva se il giocatore è un portiere
+		IF New.TipoMilitanza <> 'P' THEN 
+			RAISE EXCEPTION 'Il giocatore è listato come giocatore di movimento nella militanza, ma è un portiere!';
+		END IF;
+	END IF;
+	RETURN NEW;
+END;
+$$ Language plpgsql;
+
+CREATE TRIGGER check_ruolo_militanza
+BEFORE INSERT OR UPDATE ON Militanza
+FOR EACH ROW
+EXECUTE FUNCTION check_ruolo_militanza();
