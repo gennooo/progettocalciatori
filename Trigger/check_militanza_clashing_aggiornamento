@@ -1,5 +1,5 @@
 --prima di modificare la data di inzio di una tupla in Militanza dobbiamo controllare che la data di inizio non si trovi nel mezzo di una data di un'altra militanza 
-CREATE OR REPLACE FUNCTION ControlloDataUpdMBtw()
+CREATE OR REPLACE FUNCTION check_mil_clash_agg()
 RETURNS TRIGGER AS $$
 BEGIN 
 	IF EXISTS (
@@ -17,5 +17,5 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER check_mil_clash_agg
 BEFORE UPDATE ON Militanza
 FOR EACH ROW
-WHEN (New.data_inizio <> Old.data_inizio OR new.data_fine <> OLD.data_fine)
+WHEN (New.data_inizio <> Old.data_inizio OR New.data_fine <> OLD.data_fine)
 EXECUTE FUNCTION check_mil_clash_agg();
