@@ -2,17 +2,17 @@
 CREATE OR REPLACE FUNCTION checktrofeo()
 RETURNS TRIGGER AS $$
 DECLARE
-isSquadra BOOLEAN;
+controllosq BOOLEAN;
 BEGIN
 	--controllo prima l'esistenza del trofeo stesso nella tabella
-	  SELECT Squadra INTO isSquadra
+	  SELECT Squadra INTO controllosq
 	  FROM Trofeo
-	  WHERE NomeTrofeo = New.NomeTrofeo
+	  WHERE nome_trofeo = New.nome_trofeo
 	  LIMIT 1;
 
-	  IF isSquadra is NOT NULL AND isSquadra <> New.Squadra THEN 
+	  IF controllosq is NOT NULL AND controllosq <> New.Squadra THEN 
 	
-		RAISE EXCEPTION 'Trofeo % non del tipo giusto. Dovrebbe essere %', NEW.NomeTrofeo, isSquadra;
+		RAISE EXCEPTION 'Trofeo % non del tipo giusto. Dovrebbe essere %', NEW.nome_trofeo, controllosq;
 		
 	  END IF;
 
