@@ -31,7 +31,7 @@ Create table Militanza (
     nome_squadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL,
     ruolomilitanza VARCHAR(1) NOT NULL,
     id_militanza NOT NULL
-    id_giocatore id_valido NOT NULL,
+    id_giocatore id_valido REFERENCES Giocatori(id_giocatore),
     data_inizio NOT NULL,
     data_termine NOT NULL,
     partite_giocate NOT NULL,
