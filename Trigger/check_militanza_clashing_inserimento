@@ -14,7 +14,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_mil_clash
+CREATE TRIGGER check_mil_clash_ins
 BEFORE INSERT ON Militanza
 FOR EACH ROW
 EXECUTE FUNCTION check_mil_clash();
