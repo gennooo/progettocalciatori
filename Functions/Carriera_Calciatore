@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION Carriera_Calciatore(checksquadra TEXT)
-RETURNS TABLE(id_player id_valido)
+RETURNS TABLE(id_giocatore id_valido)
 AS $$
 	
 		BEGIN
