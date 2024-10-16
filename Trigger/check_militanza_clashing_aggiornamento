@@ -1,0 +1,21 @@
+--prima di modificare la data di inzio di una tupla in Militanza dobbiamo controllare che la data di inizio non si trovi nel mezzo di una data di un'altra militanza 
+CREATE OR REPLACE FUNCTION ControlloDataUpdMBtw()
+RETURNS TRIGGER AS $$
+BEGIN 
+	IF EXISTS (
+		SELECT 1
+		FROM Militanza 
+		WHERE New.id_giocatore = id_giocatore
+		  AND New.data_inizio BETWEEN data_inizio AND data_fine
+	) THEN
+		RAISE EXCEPTION 'La militanza % non può essere inserita. Il giocatore % in quella data ha già un''altra militanza', NEW.id_Militanza, NEW.id_giocatore;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_mil_clash_agg
+BEFORE UPDATE ON Militanza
+FOR EACH ROW
+WHEN (New.data_inizio <> Old.data_inizio OR new.data_fine <> OLD.data_fine)
+EXECUTE FUNCTION check_mil_clash_agg();
