@@ -12,7 +12,7 @@ BEGIN
 
 	  IF controllosq is NOT NULL AND controllosq <> New.Squadra THEN 
 	
-		RAISE EXCEPTION 'Trofeo % non del tipo giusto. Dovrebbe essere %', NEW.nome_trofeo, controllosq;
+		RAISE EXCEPTION '% non è registrato correttamente. Il trofeo è di tipo %', NEW.nome_trofeo, controllosq;
 		
 	  END IF;
 
