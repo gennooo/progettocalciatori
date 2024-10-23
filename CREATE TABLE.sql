@@ -27,7 +27,7 @@ CREATE TABLE Squadra (
     PRIMARY KEY (nome_squadra)
 );
 
-Create table Militanza (
+CREATE TABLE Militanza (
     nome_squadra VARCHAR(50) REFERENCES Squadra(nome_squadra) NOT NULL,
     ruolomilitanza VARCHAR(1) NOT NULL,
     id_militanza NOT NULL
