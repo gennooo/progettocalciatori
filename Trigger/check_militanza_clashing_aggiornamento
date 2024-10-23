@@ -6,7 +6,7 @@ BEGIN
 		SELECT 1
 		FROM Militanza 
 		WHERE New.id_giocatore = id_giocatore
-		  AND New.data_inizio BETWEEN data_inizio AND data_fine
+		  AND New.data_inizio BETWEEN data_inizio AND data_termine
 	) THEN
 		RAISE EXCEPTION 'La militanza % non può essere inserita. Il giocatore % in quella data ha già un''altra militanza', NEW.id_Militanza, NEW.id_giocatore;
 	END IF;
@@ -17,5 +17,5 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER check_mil_clash_agg
 BEFORE UPDATE ON Militanza
 FOR EACH ROW
-WHEN (New.data_inizio <> Old.data_inizio OR New.data_fine <> OLD.data_fine)
+WHEN (New.data_inizio <> Old.data_inizio OR New.data_termine <> OLD.data_termine)
 EXECUTE FUNCTION check_mil_clash_agg();
