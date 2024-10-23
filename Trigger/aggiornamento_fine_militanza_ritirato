@@ -17,5 +17,5 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER agg_fine_mil
 AFTER UPDATE ON Giocatori
 FOR EACH ROW
-WHEN (NEW.Ritirato)
+WHEN (NEW.ritiro)
 EXECUTE FUNCTION agg_fine_mil();
